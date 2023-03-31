@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct Hungry_App: App {
+    @State var dataSource = DataSource()
     var body: some Scene {
+      
         WindowGroup {
-            ContentView()
+            RootView()
+                .environmentObject(dataSource)
+                .onAppear {
+                    print(URL.documentsDirectory.path)
+                }
         }
     }
 }

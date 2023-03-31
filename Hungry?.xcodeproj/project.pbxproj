@@ -7,18 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		687143B429CE8B6E00E9CB5E /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687143B329CE8B6E00E9CB5E /* WeeklyView.swift */; };
+		687143B629D079CE00E9CB5E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687143B529D079CE00E9CB5E /* RootView.swift */; };
+		68971C8F29C819FA005246A9 /* SpinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68971C8E29C819FA005246A9 /* SpinView.swift */; };
 		68AC856629C53DB6000B3C1D /* Hungry_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC856529C53DB6000B3C1D /* Hungry_App.swift */; };
-		68AC856829C53DB6000B3C1D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC856729C53DB6000B3C1D /* ContentView.swift */; };
+		68AC856829C53DB6000B3C1D /* AddRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC856729C53DB6000B3C1D /* AddRestaurant.swift */; };
 		68AC856A29C53DB7000B3C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68AC856929C53DB7000B3C1D /* Assets.xcassets */; };
 		68AC856D29C53DB7000B3C1D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68AC856C29C53DB7000B3C1D /* Preview Assets.xcassets */; };
+		68AC857429C53ECA000B3C1D /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AC857329C53ECA000B3C1D /* DataSource.swift */; };
+		68F8CF4229CE40A100E256B6 /* EditRestaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F8CF4129CE40A100E256B6 /* EditRestaurant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		687143B329CE8B6E00E9CB5E /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
+		687143B529D079CE00E9CB5E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		68971C8E29C819FA005246A9 /* SpinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinView.swift; sourceTree = "<group>"; };
 		68AC856229C53DB6000B3C1D /* Hungry?.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hungry?.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68AC856529C53DB6000B3C1D /* Hungry_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hungry_App.swift; sourceTree = "<group>"; };
-		68AC856729C53DB6000B3C1D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		68AC856729C53DB6000B3C1D /* AddRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRestaurant.swift; sourceTree = "<group>"; };
 		68AC856929C53DB7000B3C1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68AC856C29C53DB7000B3C1D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		68AC857329C53ECA000B3C1D /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		68F8CF4129CE40A100E256B6 /* EditRestaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRestaurant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +61,15 @@
 		68AC856429C53DB6000B3C1D /* Hungry? */ = {
 			isa = PBXGroup;
 			children = (
+				687143B529D079CE00E9CB5E /* RootView.swift */,
 				68AC856529C53DB6000B3C1D /* Hungry_App.swift */,
-				68AC856729C53DB6000B3C1D /* ContentView.swift */,
+				68AC856729C53DB6000B3C1D /* AddRestaurant.swift */,
+				687143B329CE8B6E00E9CB5E /* WeeklyView.swift */,
+				68F8CF4129CE40A100E256B6 /* EditRestaurant.swift */,
 				68AC856929C53DB7000B3C1D /* Assets.xcassets */,
 				68AC856B29C53DB7000B3C1D /* Preview Content */,
+				68AC857329C53ECA000B3C1D /* DataSource.swift */,
+				68971C8E29C819FA005246A9 /* SpinView.swift */,
 			);
 			path = "Hungry?";
 			sourceTree = "<group>";
@@ -137,8 +152,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68AC856829C53DB6000B3C1D /* ContentView.swift in Sources */,
+				68AC857429C53ECA000B3C1D /* DataSource.swift in Sources */,
+				68F8CF4229CE40A100E256B6 /* EditRestaurant.swift in Sources */,
+				68AC856829C53DB6000B3C1D /* AddRestaurant.swift in Sources */,
+				68971C8F29C819FA005246A9 /* SpinView.swift in Sources */,
+				687143B629D079CE00E9CB5E /* RootView.swift in Sources */,
 				68AC856629C53DB6000B3C1D /* Hungry_App.swift in Sources */,
+				687143B429CE8B6E00E9CB5E /* WeeklyView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
