@@ -8,30 +8,28 @@
 import SwiftUI
 
 struct WeeklyView: View {
-
+    
     @EnvironmentObject var storeData: DataSource
     let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-
+  
     var body: some View {
+        
         VStack {
-            ForEach(days, id: \.self) { item in
+//            if !storeData.restaurantList.isEmpty {
+            
+            List(Array(zip(days, storeData.restaurantList)), id: \.self) { (days, entre) in
+                Text(days)
+                    .bold()
+                    .font(.title)
+                Text(entre.name)
+                    .font(.title3)
                 
-                List(storeData.restaurantList) { laugh in
-                        
-                        //                if !storeData.restaurantList.isEmpty {
-                        
-                        Text(item)
-                            .bold()
-                            .font(.title)
-                        Text(laugh.name)
-                            .font(.title3)
-                    
-                }
-//                } else {
-//                    Text("Add your first Entre Item")
-                
+           
+//                    } else {
+//                        Text("Add your first Entre Item")
+//                    }
             }
-                    .listStyle(.grouped)
+                .listStyle(.grouped)
         }  // If Empty
     }// End of Body
 } // End of Struct
