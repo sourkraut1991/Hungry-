@@ -16,8 +16,7 @@ struct RestaurantItem: Identifiable, Hashable, Codable {
         case name
         case note
     }
-    
-    
+
     static var samples: [RestaurantItem] {
         [
             RestaurantItem.init(name: "Climb Mount Everest"),
@@ -31,22 +30,25 @@ struct RestaurantItem: Identifiable, Hashable, Codable {
 class DataSource: ObservableObject {
     
     @Published var restaurantList: [RestaurantItem] = []
+    @Published var cunt: [RestaurantItem] = []
     // Helps create a json file to safe onto device
     let fileURL = URL.documentsDirectory.appending(path: "bucketList.json")
     
     init() {
         loadItems()
+        
     }
     func loadItems() {
         if FileManager().fileExists(atPath: fileURL.path) {
             do {
                 let data = try Data(contentsOf: fileURL)
                 restaurantList = try JSONDecoder().decode([RestaurantItem].self, from: data)
-                
+//                restaurantList.shuffle()
             } catch {
                 // If file is corrupt so you currently the bucketlist is empty so store it and replace damaged file
                 saveList()
             }
+           
         }
         
     }
@@ -77,6 +79,25 @@ class DataSource: ObservableObject {
         saveList()
     }
 }
-
+extension Bundle {
+    
+    func decode<T: Decodable>(file: String) -> T {
+        guard let url = self.url(forResource: file, withExtension: nil) else {
+            fatalError("Could not find \(file) in bundle.")
+        }
+        
+        guard let data = try? Data(contentsOf: url) else {
+            fatalError("Could not load \(file) from bundle.")
+        }
+        
+        let decoder = JSONDecoder()
+        
+        guard let loadedData = try? decoder.decode(T.self, from: data) else {
+            fatalError("Could not decode \(file) from bundle.")
+        }
+        
+        return loadedData
+    }
+} // End Of Bundle Extension
 
 //12:15 stopping point; need to sleep

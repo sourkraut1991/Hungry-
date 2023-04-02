@@ -11,22 +11,28 @@ struct WeeklyView: View {
 
     @EnvironmentObject var storeData: DataSource
     let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+
     var body: some View {
-        if !storeData.restaurantList.isEmpty {
-            List {
-                if let random = storeData.restaurantList.randomElement() {
-                    ForEach(days, id: \.self) { item in
+        VStack {
+            ForEach(days, id: \.self) { item in
+                
+                List(storeData.restaurantList) { laugh in
+                        
+                        //                if !storeData.restaurantList.isEmpty {
+                        
                         Text(item)
                             .bold()
                             .font(.title)
-                        Text(random.name)
+                        Text(laugh.name)
                             .font(.title3)
-                    }
-                } else {
-                    Text("Add your first Entre Item")
+                    
                 }
-            }.listStyle(.grouped)
-        }// If Empty
+//                } else {
+//                    Text("Add your first Entre Item")
+                
+            }
+                    .listStyle(.grouped)
+        }  // If Empty
     }// End of Body
 } // End of Struct
 
