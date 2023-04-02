@@ -17,6 +17,7 @@ struct RestaurantItem: Identifiable, Hashable, Codable {
         case note
     }
     
+    
     static var samples: [RestaurantItem] {
         [
             RestaurantItem.init(name: "Climb Mount Everest"),
