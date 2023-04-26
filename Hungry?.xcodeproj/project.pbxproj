@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6812A56029F3B14100862296 /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6812A55F29F3B14100862296 /* testView.swift */; };
 		687143B429CE8B6E00E9CB5E /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687143B329CE8B6E00E9CB5E /* WeeklyView.swift */; };
 		687143B629D079CE00E9CB5E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687143B529D079CE00E9CB5E /* RootView.swift */; };
 		68971C8F29C819FA005246A9 /* SpinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68971C8E29C819FA005246A9 /* SpinView.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6812A55F29F3B14100862296 /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 		687143B329CE8B6E00E9CB5E /* WeeklyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyView.swift; sourceTree = "<group>"; };
 		687143B529D079CE00E9CB5E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		68971C8E29C819FA005246A9 /* SpinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinView.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				687143B329CE8B6E00E9CB5E /* WeeklyView.swift */,
 				68F8CF4129CE40A100E256B6 /* EditRestaurant.swift */,
 				68971C8E29C819FA005246A9 /* SpinView.swift */,
+				6812A55F29F3B14100862296 /* testView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				68AC856829C53DB6000B3C1D /* AddRestaurant.swift in Sources */,
 				68971C8F29C819FA005246A9 /* SpinView.swift in Sources */,
 				687143B629D079CE00E9CB5E /* RootView.swift in Sources */,
+				6812A56029F3B14100862296 /* testView.swift in Sources */,
 				68C766DD29D960C800D1F5FA /* OnboardingView.swift in Sources */,
 				68AC856629C53DB6000B3C1D /* Hungry_App.swift in Sources */,
 				687143B429CE8B6E00E9CB5E /* WeeklyView.swift in Sources */,
@@ -330,6 +334,8 @@
 				DEVELOPMENT_TEAM = TDBL5DL56U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PlanMeals;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -359,6 +365,8 @@
 				DEVELOPMENT_TEAM = TDBL5DL56U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PlanMeals;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

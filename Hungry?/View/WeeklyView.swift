@@ -8,38 +8,49 @@
 import SwiftUI
 
 struct WeeklyView: View {
-    
-    @EnvironmentObject var storeData: DataSource
     let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-  
+    
+    @State private var meals: [(String, String)] = []
+    @EnvironmentObject var storeData: DataSource
     var body: some View {
-        
-        VStack {
-//            if !storeData.restaurantList.isEmpty {
+        ZStack {
+            Color.black
+                .ignoresSafeArea()
             
-            List(Array(zip(days, storeData.restaurantList)), id: \.self) { (days, entre) in
-                Text(days)
-                    .bold()
-                    .font(.title)
-                Text(entre.name)
-                    .font(.title3)
+            VStack {
+                Text("Pull down to refresh list").font(.caption).foregroundColor(.white)
                 
-           
-//                    } else {
-//                        Text("Add your first Entre Item")
-//                    }
+                List(meals, id: \.0) { (day, entree) in
+                    
+                    //\.0 refers to the first element in the tuple, i.e., the day
+                    VStack(alignment: .leading) {
+                        Text(day).bold().font(.headline)
+                        Text(entree).font(.title3)
+                    }
+                }
+                .refreshable {
+                    shuffleMeals()
+                    print("shuffling...")
+                }
             }
-                .listStyle(.grouped)
-        }  // If Empty
-    }// End of Body
-} // End of Struct
+        }
+        .onAppear {
+            shuffleMeals()
+        }
+    }
 
 
+func shuffleMeals() {
+    let restaurantNames = storeData.restaurantList.map { $0.name }
+    let shuffledNames = restaurantNames.shuffled()
+    meals = Array(zip(days, shuffledNames))
+}
 
-
+}
 
 struct WeeklyView_Previews: PreviewProvider {
     static var previews: some View {
         WeeklyView()
+            .environmentObject(DataSource())
     }
 }

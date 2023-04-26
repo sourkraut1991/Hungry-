@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RestaurantItem: Identifiable, Hashable, Codable {
+struct RestaurantItem: Codable, Hashable, Identifiable {
     var id = UUID()
     var name: String
     var note = ""
@@ -16,7 +16,11 @@ struct RestaurantItem: Identifiable, Hashable, Codable {
         case name
         case note
     }
-
+    init(id: UUID = UUID(), name: String, note: String = "") {
+        self.id = id
+        self.name = name
+        self.note = note
+    }
     static var samples: [RestaurantItem] {
         [
             RestaurantItem.init(name: "Climb Mount Everest"),
@@ -25,12 +29,12 @@ struct RestaurantItem: Identifiable, Hashable, Codable {
         ]
         
     }
+ 
 }
 
 class DataSource: ObservableObject {
     
     @Published var restaurantList: [RestaurantItem] = []
-    @Published var cunt: [RestaurantItem] = []
     // Helps create a json file to safe onto device
     let fileURL = URL.documentsDirectory.appending(path: "bucketList.json")
     
@@ -43,7 +47,7 @@ class DataSource: ObservableObject {
             do {
                 let data = try Data(contentsOf: fileURL)
                 restaurantList = try JSONDecoder().decode([RestaurantItem].self, from: data)
-//                restaurantList.shuffle()
+                
             } catch {
                 // If file is corrupt so you currently the bucketlist is empty so store it and replace damaged file
                 saveList()
@@ -55,7 +59,6 @@ class DataSource: ObservableObject {
     func update(bucketItem: RestaurantItem, note: String) {
         if let index = restaurantList.firstIndex(where: {$0.id == bucketItem.id}) {
             restaurantList[index].note = note
-            
             saveList()
         }
     }
@@ -70,9 +73,10 @@ class DataSource: ObservableObject {
         }
     }
     func create(_ newItem: String) {
-        let newBucketItem = RestaurantItem(name: newItem)
-        restaurantList.append(newBucketItem)
+        let newRestaurantItem = RestaurantItem(name: newItem)
+        restaurantList.append(newRestaurantItem)
         saveList()
+        
     }
     func delete(indexSet: IndexSet) {
         restaurantList.remove(atOffsets: indexSet)

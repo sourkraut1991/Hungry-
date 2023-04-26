@@ -11,7 +11,7 @@ struct AddRestaurant: View {
     @EnvironmentObject var storeData: DataSource
     
     @State private var newEntre = ""
-    
+    @FocusState private var nameIsFocused: Bool
     var body: some View {
         NavigationStack {
             VStack {
@@ -20,6 +20,7 @@ struct AddRestaurant: View {
                     Button {
                         storeData.create(newEntre)
                         newEntre = ""
+                        nameIsFocused = false
                         
                     } label: {
                         Image (systemName: "plus.circle.fill")

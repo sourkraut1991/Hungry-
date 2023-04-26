@@ -16,7 +16,7 @@ struct EditRestaurant: View {
    
     var body: some View {
         Form {
-            TextField("bucket note", text: $note, axis: .vertical)
+            TextField("note", text: $note, axis: .vertical)
            
         }
         .onAppear {

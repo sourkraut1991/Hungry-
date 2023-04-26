@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct OnboardingPageView: View {
-
+    
     var body: some View {
         VStack {
-            
+            Text("Pull down to refresh list").font(.caption)
         }
     }
 }

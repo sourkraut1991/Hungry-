@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct Hungry_App: App {
-    @State var dataSource = DataSource()
+    @StateObject var dataSource = DataSource()
     var body: some Scene {
       
         WindowGroup {
