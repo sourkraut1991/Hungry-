@@ -11,27 +11,35 @@ struct EditRestaurant: View {
     @EnvironmentObject var dataStore: DataSource
     let bucketItem: RestaurantItem
     @State private var note = ""
-   
+    @State private var selectedCategory = ""
     @Environment(\.dismiss) var dismiss
-   
+
     var body: some View {
         Form {
-            TextField("note", text: $note, axis: .vertical)
-           
+            TextField("Note", text: $note)
+
+            Picker("Category", selection: $selectedCategory) {
+                ForEach(dataStore.categories, id: \.self) { category in
+                    Text(category)
+                }
+            }
+            .pickerStyle(.menu)
+            .onChange(of: selectedCategory) { newValue in
+                dataStore.updateCategory(bucketItem: bucketItem, category: newValue)
+            }
         }
         .onAppear {
             note = bucketItem.note
-           
-            
+            selectedCategory = bucketItem.category
         }
         .toolbar {
             ToolbarItem {
                 Button("Update") {
-                    dataStore.update(bucketItem: bucketItem, note: note)
-                    
-                        dismiss()
+                    dataStore.updateCategory(bucketItem: bucketItem, category: selectedCategory)
+                    dismiss()
                 }
                 .buttonStyle(.bordered)
+                .disabled(selectedCategory.isEmpty)
             }
         }
         .navigationTitle(bucketItem.name)
@@ -39,12 +47,6 @@ struct EditRestaurant: View {
 }
 
 
-struct DetailView_Previews: PreviewProvider {
-    static let bucketItem = RestaurantItem.samples[2]
-    static let bucketList: Binding<[RestaurantItem]> = .constant(RestaurantItem.samples)
-    static var previews: some View {
-        NavigationStack {
-            EditRestaurant(bucketItem: bucketItem).environmentObject(DataSource())
-        }
-    }
-}
+
+
+

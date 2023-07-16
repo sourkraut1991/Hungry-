@@ -24,8 +24,8 @@ struct WeeklyView: View {
                     
                     //\.0 refers to the first element in the tuple, i.e., the day
                     VStack(alignment: .leading) {
-                        Text(day).bold().font(.headline)
-                        Text(entree).font(.title3)
+                        Text(day).bold().font(.title2)
+                        Text(entree).font(.caption)
                     }
                 }
                 .refreshable {

@@ -11,30 +11,24 @@ struct RestaurantItem: Codable, Hashable, Identifiable {
     var id = UUID()
     var name: String
     var note = ""
+    var category = ""
     
     enum CodingKeys: String, CodingKey {
         case name
         case note
+        case category
     }
-    init(id: UUID = UUID(), name: String, note: String = "") {
+    init(id: UUID = UUID(), name: String, note: String = "", category: String = "") {
         self.id = id
         self.name = name
         self.note = note
+        self.category = category
     }
-    static var samples: [RestaurantItem] {
-        [
-            RestaurantItem.init(name: "Climb Mount Everest"),
-            RestaurantItem.init(name: "Visit Alaska", note: "Go to Anchorage"),
-            RestaurantItem.init(name: "Get Married", note: "Already Married")
-        ]
-        
-    }
- 
 }
 
 class DataSource: ObservableObject {
-    
     @Published var restaurantList: [RestaurantItem] = []
+    @Published var categories: [String] = []
     // Helps create a json file to safe onto device
     let fileURL = URL.documentsDirectory.appending(path: "bucketList.json")
     
@@ -42,6 +36,17 @@ class DataSource: ObservableObject {
         loadItems()
         
     }
+    func addCategory(_ newCategory: String) {
+            if !categories.contains(newCategory) {
+                categories.append(newCategory)
+            }
+        }
+    func updateCategory(bucketItem: RestaurantItem, category: String) {
+         if let index = restaurantList.firstIndex(where: { $0.id == bucketItem.id }) {
+             restaurantList[index].category = category
+             saveList()
+         }
+     }
     func loadItems() {
         if FileManager().fileExists(atPath: fileURL.path) {
             do {
@@ -56,9 +61,10 @@ class DataSource: ObservableObject {
         }
         
     }
-    func update(bucketItem: RestaurantItem, note: String) {
+    func update(bucketItem: RestaurantItem, note: String, category: String) {
         if let index = restaurantList.firstIndex(where: {$0.id == bucketItem.id}) {
             restaurantList[index].note = note
+            restaurantList[index].category = category
             saveList()
         }
     }
@@ -72,12 +78,15 @@ class DataSource: ObservableObject {
             fatalError("Could not encode bucket list and save it")
         }
     }
-    func create(_ newItem: String) {
-        let newRestaurantItem = RestaurantItem(name: newItem)
-        restaurantList.append(newRestaurantItem)
-        saveList()
-        
-    }
+    func create(_ newItem: String, category: String) {
+           let newRestaurantItem = RestaurantItem(name: newItem, category: category)
+           restaurantList.append(newRestaurantItem)
+           saveList()
+
+           if !categories.contains(category) {
+               categories.append(category)
+           }
+       }
     func delete(indexSet: IndexSet) {
         restaurantList.remove(atOffsets: indexSet)
         saveList()
@@ -104,4 +113,3 @@ extension Bundle {
     }
 } // End Of Bundle Extension
 
-//12:15 stopping point; need to sleep
