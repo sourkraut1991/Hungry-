@@ -16,7 +16,8 @@ struct EditRestaurant: View {
 
     var body: some View {
         Form {
-            TextField("Note", text: $note)
+            
+            TextField("Note", text: $note, axis: .vertical)
 
             Picker("Category", selection: $selectedCategory) {
                 ForEach(dataStore.categories, id: \.self) { category in
@@ -35,7 +36,7 @@ struct EditRestaurant: View {
         .toolbar {
             ToolbarItem {
                 Button("Update") {
-                    dataStore.updateCategory(bucketItem: bucketItem, category: selectedCategory)
+                    dataStore.updateCategory(bucketItem: bucketItem, , note: note, category: selectedCategory)
                     dismiss()
                 }
                 .buttonStyle(.bordered)
