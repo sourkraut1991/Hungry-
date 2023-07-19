@@ -10,14 +10,16 @@ import Foundation
 struct RestaurantItem: Codable, Hashable, Identifiable {
     var id = UUID()
     var name: String
-    var note = ""
-    var category = ""
+    var note: String
+    var category: String
     
     enum CodingKeys: String, CodingKey {
+        case id
         case name
         case note
         case category
     }
+    
     init(id: UUID = UUID(), name: String, note: String = "", category: String = "") {
         self.id = id
         self.name = name
@@ -25,6 +27,7 @@ struct RestaurantItem: Codable, Hashable, Identifiable {
         self.category = category
     }
 }
+
 
 class DataSource: ObservableObject {
     @Published var restaurantList: [RestaurantItem] = []
@@ -61,13 +64,16 @@ class DataSource: ObservableObject {
         }
         
     }
+    
     func update(bucketItem: RestaurantItem, note: String, category: String) {
-        if let index = restaurantList.firstIndex(where: {$0.id == bucketItem.id}) {
+        if let index = restaurantList.firstIndex(where: { $0.id == bucketItem.id }) {
             restaurantList[index].note = note
             restaurantList[index].category = category
-            saveList()
+            saveList() // Add this line to save the updated data
         }
     }
+
+
     //TODO: go over episode 3 to annotate what each line does.
     func saveList() {
         do {
@@ -79,14 +85,15 @@ class DataSource: ObservableObject {
         }
     }
     func create(_ newItem: String, category: String) {
-           let newRestaurantItem = RestaurantItem(name: newItem, category: category)
-           restaurantList.append(newRestaurantItem)
-           saveList()
+        let newRestaurantItem = RestaurantItem(name: newItem, category: category)
+        restaurantList.append(newRestaurantItem)
+        saveList()
 
-           if !categories.contains(category) {
-               categories.append(category)
-           }
-       }
+        if !categories.contains(category) {
+            categories.append(category)
+        }
+    }
+
     func delete(indexSet: IndexSet) {
         restaurantList.remove(atOffsets: indexSet)
         saveList()

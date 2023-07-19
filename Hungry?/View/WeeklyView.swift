@@ -12,20 +12,21 @@ struct WeeklyView: View {
     
     @State private var meals: [(String, String)] = []
     @EnvironmentObject var storeData: DataSource
+    
     var body: some View {
-        ZStack {
-            Color.black
-                .ignoresSafeArea()
-            
+        VStack {
             VStack {
-                Text("Pull down to refresh list").font(.caption).foregroundColor(.white)
+                Text("Pull down to refresh list")
+                    .font(.caption)
+                    .foregroundColor(.white)
                 
                 List(meals, id: \.0) { (day, entree) in
-                    
-                    //\.0 refers to the first element in the tuple, i.e., the day
                     VStack(alignment: .leading) {
-                        Text(day).bold().font(.title2)
-                        Text(entree).font(.caption)
+                        Text(day)
+                            .bold()
+                            .font(.title2)
+                        Text(entree)
+                            .font(.caption)
                     }
                 }
                 .refreshable {
@@ -33,20 +34,68 @@ struct WeeklyView: View {
                     print("shuffling...")
                 }
             }
+            
+            Button(action: {
+                saveMeals()
+            }) {
+                Text("Save Meals")
+                    .padding()
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
         }
         .onAppear {
-            shuffleMeals()
+            loadMeals()
         }
     }
-
-
-func shuffleMeals() {
-    let restaurantNames = storeData.restaurantList.map { $0.name }
-    let shuffledNames = restaurantNames.shuffled()
-    meals = Array(zip(days, shuffledNames))
+       
+        
+    
+    
+    
+    func loadMeals() {
+        let fileURL = URL.documentsDirectory.appendingPathComponent("meals.json")
+        
+        do {
+            let jsonData = try Data(contentsOf: fileURL)
+            let loadedMeals = try JSONDecoder().decode([RestaurantItem].self, from: jsonData)
+            
+            meals = loadedMeals.map { meal in
+                (days.randomElement() ?? "", meal.name)
+            }
+            
+            print("Meals loaded successfully!")
+        } catch {
+            print("Failed to load meals:", error.localizedDescription)
+        }
+    }
+    
+    
+    
+    func saveMeals() {
+        let updatedRestaurantList: [RestaurantItem] = meals.map { meal in
+            let newItem = RestaurantItem(name: meal.1)
+            return newItem
+        }
+        
+        let fileURL = URL.documentsDirectory.appendingPathComponent("meals.json")
+        
+        do {
+            let jsonData = try JSONEncoder().encode(updatedRestaurantList)
+            try jsonData.write(to: fileURL)
+            print("Meals saved successfully!")
+        } catch {
+            print("Failed to save meals:", error.localizedDescription)
+        }
+    }
+    func shuffleMeals() {
+        let restaurantNames = storeData.restaurantList.map { $0.name }
+        let shuffledNames = restaurantNames.shuffled()
+        meals = Array(zip(days, shuffledNames))
+    }
 }
 
-}
 
 struct WeeklyView_Previews: PreviewProvider {
     static var previews: some View {

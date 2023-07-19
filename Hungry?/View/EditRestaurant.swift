@@ -12,32 +12,30 @@ struct EditRestaurant: View {
     let bucketItem: RestaurantItem
     @State private var note = ""
     @State private var selectedCategory = ""
-    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         Form {
-            
-            TextField("Note", text: $note, axis: .vertical)
-
-            Picker("Category", selection: $selectedCategory) {
-                ForEach(dataStore.categories, id: \.self) { category in
-                    Text(category)
-                }
-            }
-            .pickerStyle(.menu)
-            .onChange(of: selectedCategory) { newValue in
-                dataStore.updateCategory(bucketItem: bucketItem, category: newValue)
-            }
+            TextField("Note", text: $note)
+            TextField("Category", text: $selectedCategory).disabled(true)
+//            Picker("Category", selection: $selectedCategory) {
+//                ForEach(dataStore.categories, id: \.self) { category in
+//                    Text(category)
+//                }
+//            }
+//            .pickerStyle(.menu)
+//            .onChange(of: selectedCategory) { newValue in
+//                dataStore.update(bucketItem: bucketItem, note: note, category: selectedCategory)
+//            }
         }
         .onAppear {
             note = bucketItem.note
             selectedCategory = bucketItem.category
         }
+
         .toolbar {
             ToolbarItem {
                 Button("Update") {
-                    dataStore.updateCategory(bucketItem: bucketItem, , note: note, category: selectedCategory)
-                    dismiss()
+                    dataStore.update(bucketItem: bucketItem, note: note, category: selectedCategory)
                 }
                 .buttonStyle(.bordered)
                 .disabled(selectedCategory.isEmpty)
@@ -46,8 +44,3 @@ struct EditRestaurant: View {
         .navigationTitle(bucketItem.name)
     }
 }
-
-
-
-
-
