@@ -7,30 +7,24 @@
 
 import SwiftUI
 
-struct EditRestaurant: View {
+struct EditEntre: View {
     @EnvironmentObject var dataStore: DataSource
-    let bucketItem: RestaurantItem
+    let bucketItem: EntreItem
     @State private var note = ""
     @State private var selectedCategory = ""
 
     var body: some View {
         Form {
-            TextField("Note", text: $note)
+            TextField("Note", text: $note, axis: .vertical)
+                .lineLimit(3, reservesSpace: true)
             TextField("Category", text: $selectedCategory).disabled(true)
-//            Picker("Category", selection: $selectedCategory) {
-//                ForEach(dataStore.categories, id: \.self) { category in
-//                    Text(category)
-//                }
-//            }
-//            .pickerStyle(.menu)
-//            .onChange(of: selectedCategory) { newValue in
-//                dataStore.update(bucketItem: bucketItem, note: note, category: selectedCategory)
-//            }
+
         }
         .onAppear {
             note = bucketItem.note
             selectedCategory = bucketItem.category
         }
+       
 
         .toolbar {
             ToolbarItem {

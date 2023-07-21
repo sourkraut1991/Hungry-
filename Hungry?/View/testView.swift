@@ -33,7 +33,7 @@ struct testView: View {
     }
     
     func shuffleMeals() {
-        let restaurantNames = storeData.restaurantList.map { $0.name }
+        let restaurantNames = storeData.entreList.map { $0.name }
         let shuffledNames = restaurantNames.shuffled()
         meals = Array(zip(days, shuffledNames))
     }

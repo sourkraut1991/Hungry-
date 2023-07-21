@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RestaurantItem: Codable, Hashable, Identifiable {
+struct EntreItem: Codable, Hashable, Identifiable {
     var id = UUID()
     var name: String
     var note: String
@@ -30,7 +30,7 @@ struct RestaurantItem: Codable, Hashable, Identifiable {
 
 
 class DataSource: ObservableObject {
-    @Published var restaurantList: [RestaurantItem] = []
+    @Published var entreList: [EntreItem] = []
     @Published var categories: [String] = []
     // Helps create a json file to safe onto device
     let fileURL = URL.documentsDirectory.appending(path: "bucketList.json")
@@ -44,9 +44,9 @@ class DataSource: ObservableObject {
                 categories.append(newCategory)
             }
         }
-    func updateCategory(bucketItem: RestaurantItem, category: String) {
-         if let index = restaurantList.firstIndex(where: { $0.id == bucketItem.id }) {
-             restaurantList[index].category = category
+    func updateCategory(bucketItem: EntreItem, category: String) {
+         if let index = entreList.firstIndex(where: { $0.id == bucketItem.id }) {
+             entreList[index].category = category
              saveList()
          }
      }
@@ -54,7 +54,7 @@ class DataSource: ObservableObject {
         if FileManager().fileExists(atPath: fileURL.path) {
             do {
                 let data = try Data(contentsOf: fileURL)
-                restaurantList = try JSONDecoder().decode([RestaurantItem].self, from: data)
+                entreList = try JSONDecoder().decode([EntreItem].self, from: data)
                 
             } catch {
                 // If file is corrupt so you currently the bucketlist is empty so store it and replace damaged file
@@ -65,10 +65,10 @@ class DataSource: ObservableObject {
         
     }
     
-    func update(bucketItem: RestaurantItem, note: String, category: String) {
-        if let index = restaurantList.firstIndex(where: { $0.id == bucketItem.id }) {
-            restaurantList[index].note = note
-            restaurantList[index].category = category
+    func update(bucketItem: EntreItem, note: String, category: String) {
+        if let index = entreList.firstIndex(where: { $0.id == bucketItem.id }) {
+            entreList[index].note = note
+            entreList[index].category = category
             saveList() // Add this line to save the updated data
         }
     }
@@ -77,7 +77,7 @@ class DataSource: ObservableObject {
     //TODO: go over episode 3 to annotate what each line does.
     func saveList() {
         do {
-            let bucketListData = try JSONEncoder().encode(restaurantList)
+            let bucketListData = try JSONEncoder().encode(entreList)
             let bucketListString = String(decoding: bucketListData, as: UTF8.self)
             try bucketListString.write(to: fileURL, atomically: true, encoding: .utf8)
         } catch {
@@ -85,8 +85,8 @@ class DataSource: ObservableObject {
         }
     }
     func create(_ newItem: String, category: String) {
-        let newRestaurantItem = RestaurantItem(name: newItem, category: category)
-        restaurantList.append(newRestaurantItem)
+        let newRestaurantItem = EntreItem(name: newItem, category: category)
+        entreList.append(newRestaurantItem)
         saveList()
 
         if !categories.contains(category) {
@@ -95,7 +95,7 @@ class DataSource: ObservableObject {
     }
 
     func delete(indexSet: IndexSet) {
-        restaurantList.remove(atOffsets: indexSet)
+        entreList.remove(atOffsets: indexSet)
         saveList()
     }
 }

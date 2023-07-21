@@ -59,10 +59,11 @@ struct WeeklyView: View {
         
         do {
             let jsonData = try Data(contentsOf: fileURL)
-            let loadedMeals = try JSONDecoder().decode([RestaurantItem].self, from: jsonData)
+            let loadedMeals = try JSONDecoder().decode([EntreItem].self, from: jsonData)
             
-            meals = loadedMeals.map { meal in
-                (days.randomElement() ?? "", meal.name)
+            meals = loadedMeals.enumerated().map { (index, meal) in
+                let dayIndex = index % days.count
+                return (days[dayIndex], meal.name)
             }
             
             print("Meals loaded successfully!")
@@ -74,8 +75,8 @@ struct WeeklyView: View {
     
     
     func saveMeals() {
-        let updatedRestaurantList: [RestaurantItem] = meals.map { meal in
-            let newItem = RestaurantItem(name: meal.1)
+        let updatedRestaurantList: [EntreItem] = meals.map { meal in
+            let newItem = EntreItem(name: meal.1)
             return newItem
         }
         
@@ -90,7 +91,7 @@ struct WeeklyView: View {
         }
     }
     func shuffleMeals() {
-        let restaurantNames = storeData.restaurantList.map { $0.name }
+        let restaurantNames = storeData.entreList.map { $0.name }
         let shuffledNames = restaurantNames.shuffled()
         meals = Array(zip(days, shuffledNames))
     }
