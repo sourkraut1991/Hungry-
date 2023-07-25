@@ -33,7 +33,7 @@ class DataSource: ObservableObject {
     @Published var entreList: [EntreItem] = []
     @Published var categories: [String] = []
     // Helps create a json file to safe onto device
-    let fileURL = URL.documentsDirectory.appending(path: "bucketList.json")
+    let fileURL = URL.documentsDirectory.appending(path: "meals.json")
     
     init() {
         loadItems()
@@ -89,9 +89,7 @@ class DataSource: ObservableObject {
         entreList.append(newRestaurantItem)
         saveList()
 
-        if !categories.contains(category) {
-            categories.append(category)
-        }
+        
     }
 
     func delete(indexSet: IndexSet) {

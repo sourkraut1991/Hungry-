@@ -1,10 +1,3 @@
-//
-//  WeeklyView.swift
-//  Hungry?
-//
-//  Created by Ed Kraus on 3/25/23.
-//
-
 import SwiftUI
 
 struct WeeklyView: View {
@@ -36,7 +29,7 @@ struct WeeklyView: View {
             }
             
             Button(action: {
-                saveMeals()
+                saveMeals(to: URL.documentsDirectory.appendingPathComponent("customMeals.json"))
             }) {
                 Text("Save Meals")
                     .padding()
@@ -44,18 +37,16 @@ struct WeeklyView: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
             }
+            .padding(.top) // Add some top padding to separate the button from the list
         }
         .onAppear {
             loadMeals()
         }
     }
-       
-        
-    
     
     
     func loadMeals() {
-        let fileURL = URL.documentsDirectory.appendingPathComponent("meals.json")
+        let fileURL = URL.documentsDirectory.appendingPathComponent("customMeals.json")
         
         do {
             let jsonData = try Data(contentsOf: fileURL)
@@ -72,31 +63,33 @@ struct WeeklyView: View {
         }
     }
     
-    
-    
-    func saveMeals() {
-        let updatedRestaurantList: [EntreItem] = meals.map { meal in
-            let newItem = EntreItem(name: meal.1)
-            return newItem
+    func saveMeals(to fileURL: URL) {
+        let updatedMeals: [EntreItem] = meals.map { meal in
+            if let existingMeal = storeData.entreList.first(where: { $0.name == meal.1 }) {
+                // If the meal already exists in the storeData, use the existing item
+                return existingMeal
+            } else {
+                // Otherwise, create a new EntreItem
+                let newItem = EntreItem(name: meal.1)
+                return newItem
+            }
         }
         
-        let fileURL = URL.documentsDirectory.appendingPathComponent("meals.json")
-        
         do {
-            let jsonData = try JSONEncoder().encode(updatedRestaurantList)
+            let jsonData = try JSONEncoder().encode(updatedMeals)
             try jsonData.write(to: fileURL)
             print("Meals saved successfully!")
         } catch {
             print("Failed to save meals:", error.localizedDescription)
         }
     }
+    
     func shuffleMeals() {
         let restaurantNames = storeData.entreList.map { $0.name }
         let shuffledNames = restaurantNames.shuffled()
         meals = Array(zip(days, shuffledNames))
     }
 }
-
 
 struct WeeklyView_Previews: PreviewProvider {
     static var previews: some View {
